@@ -20,7 +20,7 @@ app.get('/',function(req,res){
 });
 
 app.post('/auth/login',function(req,res){
-	//console.log('this is post request');
+	console.log('this is post request');
    res.json({
    	message:'you got a post request'
    });
@@ -28,8 +28,8 @@ app.post('/auth/login',function(req,res){
  
 });
 
-app.put('/:name/:address/:phone',function(req,res){
-	//console.log('this is put request');
+app.put('/name',function(req,res){
+	console.log('this is put request');
 	res.json({
 		message:'you got a put request'
 	});
@@ -37,10 +37,12 @@ app.put('/:name/:address/:phone',function(req,res){
  
 });
 app.delete('/:id',function(req,res){
-	//var id = req.params.id;
-	//console.log('id is now>>',id);
+	var id = req.params.id;
+	console.log('id is now>>',id);
 	//console.log('request parameters',req.params);//params comes :/name:/address
     //console.log('request params',req.queries);	
+	//queries?name=""&address="abc"&phone="123"
+	console.log('this is a delete request',req.params);
 	res.json({
 		message:'you got a delete request'
 	});
