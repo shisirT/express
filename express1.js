@@ -8,6 +8,7 @@ app.get('/',function(req,res){
 		//do something
 	}
 	console.log('request');
+
 	res.json({
 		message:'your request'
 	});
@@ -15,6 +16,7 @@ app.get('/',function(req,res){
 
 app.post('/',function(req,res){
 	console.log('post');
+
 	res.json({
 		message:'your post'
 	});
@@ -22,6 +24,7 @@ app.post('/',function(req,res){
 
 app.put('/',function(req,res){
 	console.log('put');
+	
 	res.json({
 		message:'your put'
 	});
