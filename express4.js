@@ -84,12 +84,12 @@ app.use('/contact',function(req,res,next){
 */
 app.post('/',function(req,res){
 
-	console.log('this is post request',req.body);
+  console.log('this is post request',req.body);
     
     res.status(500);
 
     res.json({
-    	message: 'welcome to broadway infosys'
+      message: 'welcome to broadway infosys'
     });
 
 });
