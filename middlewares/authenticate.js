@@ -1,14 +1,11 @@
-
-//file maynot work
-
 module.exports = function(req,res,next){
-
-	if (req.headers.token =='ram'){
-		console.log('everything is valid')
+/*
+    if (req.headers.access =='admin'){
+		console.log('everything is valid',req.params.id);
 
 		next();
 		
-	}else{
+	} else {
 		console.log('call error handler middleware now');
 		
         next({
@@ -16,14 +13,13 @@ module.exports = function(req,res,next){
         	status:401,
         	message:'invalid token'
         });
-		
-		}
-
-}
 
 
+  
+        }
+  */
+    }
 
 
 
-	
-    
+

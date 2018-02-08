@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon express6.js"
   },
   "repository": {
     "type": "git",
@@ -20,10 +20,10 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "express-validator": "^4.3.0",
+    "express-validators": "^1.0.4",
     "morgan": "^1.9.0",
-    "nodemailer": "^4.4.2"
-  },
-  "devDependencies": {
-    "express-validators": "^1.0.4"
+    "nodemailer": "^4.4.2",
+    "pug": "^2.0.0-rc.4"
   }
 }
