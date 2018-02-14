@@ -4,13 +4,12 @@ module.exports.app = {
 	
 }
 
-/*
 module.exports.mongodb = {
-	mongoHost:7070,
-	dbName:testing,
+	url:'mongodb://127.0.0.1:27017/abc'
+    
 	
 }
-*/
+
 /*var a = {
 	port:7070,
 	host:127.0.0.1,

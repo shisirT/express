@@ -1,5 +1,10 @@
 var express = require('express')
 var router = express.Router();
+var mongodb = require('mongodb');
+
+
+var MongoClient = mongodb.MongoClient;
+var dbUrl = 'mongodb://127.0.0.1:27017'
 
 
 module.exports = function(){
@@ -51,14 +56,35 @@ router.post('/',function(req,res,next){
 
     if(errors){
     	console.log('error occured validating form');
-    	next(errors);
+    	return next(errors);
     	//return next(errors); //to end if there is no place to do next
-    }else{
-    	console.log('login sucess',req.body);
-    	res.json({
-    		message:'you are logged in successfully'
-    	});
     }
+
+    MongoClient.connect(dbUrl,function(err,dbClient){
+        if(err){
+            console.log('cannot connect to db');
+            return next(err);
+        }else{
+            
+            console.log('successfully connected to db');
+            
+            var db = dbClient.db('abc');
+            db.collection('users').insert({
+                name:req.body.name,
+                email:req.body.email,
+                username: req.body.username,
+                password: req.body.password
+            },function(err,done){
+                if(err){
+                   return next(err);
+                }else{
+                    console.log('successful');
+                    res.redirect('/');
+                }
+            });
+            
+        }
+    });
 
 
 });

@@ -5,9 +5,10 @@ var morgan = require('morgan');
 var expressValidator = require('express-validator');
 var path = require('path');
 
-
-//var indexRoute = require('./routes/index.js');
 var config = require('./config');
+//var indexRoute = require('./routes/index.js');
+require('./db')(config);
+
 var authRoute = require('./routes/auth')();
 var indexRoute = require('./routes/index')();
 var authorize = require('./middlewares/authorize')();
