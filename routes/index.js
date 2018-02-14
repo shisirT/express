@@ -25,6 +25,10 @@ function validate(req){
        return null;   
     }
 }
+
+function map_user_req(user,userDetails){
+  
+}
 module.exports = function(){
 router.get('/',function(req,res,next){
 	console.log('this is home page');
@@ -89,12 +93,32 @@ router.post('/',function(req,res,next){
     });
 */
 
-var newUser = new UserModel();
-newUser.name = req.body.name,
+
+
+UserModel.findOne({
+    username: req.body.username,
+    passsword: req.body.password
+},function(err,user){
+    if(err){
+        return next(err);
+    }
+    if(user){
+        res.json(user);
+    }else {
+        res.json({
+            message: 'user not found'
+        });
+    }
+});
+
+
+//var newUser = new UserModel();
+/*newUser.name = req.body.name,
 newUser.email = req.body.email,
 newUser.username = req.body.username,
 newUser.passsword = req.body.passsword
-newUser.save(function(err,savedUser){
+
+/*newUser.save(function(err,savedUser){
     if(err){
         return next(err);
     }else{
@@ -102,23 +126,35 @@ newUser.save(function(err,savedUser){
         res.json(savedUser);
     }
 });
+
+*/
+
+
 });
 
 
 router.get('/signup',function(req,res,next){
 
-
+/*
    console.log('this is for signup');
    
     res.render('index',{
     	title:'welcome',
     	message:'welcome to express js'
     });
-   
-	   // res.json({
-	   // 	message:'welcome to sign up page'
-	   // });
-   
+  
+  */
+
+  var newUser = new UserModel();
+  var newMappedUser = map_user_req(newUser,req.body);
+  newUser.save(function(err,savedUser){
+    if(err){
+        return next(err);
+    }else{
+        console.log('successful saved to db');
+        res.json(savedUser);
+    }
+  }) 
 });
 
 return router;
