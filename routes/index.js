@@ -52,35 +52,53 @@ function map_user_req(user,userDetails){
   return user;
 
 }
+
 module.exports = function(){
-router.get('/',function(req,res,next){
-	console.log('this is home page');
-	//req.headers
-	//req.query
-	//req.access
-	//req.body
-	//req.params
-	//req.url
-	//req.validationErrors
-	//all can be done in req 
-
-
-	//res.send
-	//res.end
-	//res.json
-	//res.status
-	//res.sendStatus
-	//res.render
-	//res.checkBody
-
-
-    res.render('index',{
-    	title:'welcome',
-    	message:'welcome to express js'
+ router.get('/',function(req,res,next){
+    UserModel.find({},function(err,result){
+        if(err){
+            return next(err);
+        }
+        res.status(200).json(result);
     });
-    //searches index in views
-});
-router.post('/',function(req,res,next){
+
+ });
+ /*
+ if you want to do by Promise
+
+ router.get('/',function(req,res,next){
+    
+    UserModel.find({}.then(function(data){
+        res.status(200).json(data);
+        }).catch(function(err){
+        return next(err);        
+    });
+
+ });
+
+ */
+
+  /*
+  if we want to do in monggose exec way
+
+router.get('/',function(req,res,next){
+    UserModel.find({}
+    .limit(2)
+    .exec(function(err,result){
+        if(err){
+            return next(err);
+        }
+        res.status(200).json(result);
+    });
+
+ }); 
+
+ */
+
+
+
+
+router.post('/login',function(req,res,next){
 	console.log('this is post page');
 	console.log('body>>>',req.body);
     
@@ -88,39 +106,12 @@ router.post('/',function(req,res,next){
     if(error){
         return next(error)
     }
-/*	
-    MongoClient.connect(dbUrl,function(err,dbClient){
-        if(err){
-            console.log('cannot connect to db');
-            return next(err);
-        }else{
-            
-            console.log('successfully connected to db');
-            
-            var db = dbClient.db('abc');
-            db.collection('users').insert({
-                name:req.body.name,
-                email:req.body.email,
-                username: req.body.username,
-                password: req.body.password
-            },function(err,done){
-                if(err){
-                   return next(err);
-                }else{
-                    console.log('successful');
-                    res.redirect('/');
-                }
-            });
-            
-        }
-    });
-*/
 
 
 
-UserModel.findOne({
+    UserModel.findOne({
     username: req.body.username,
-    
+
 },function(err,user){
     if(err){
         return next(err);
@@ -142,45 +133,10 @@ UserModel.findOne({
     }
 });
 
-
-//var newUser = new UserModel();
-/*newUser.name = req.body.name,
-newUser.email = req.body.email,
-newUser.username = req.body.username,
-newUser.passsword = req.body.passsword
-
-/*newUser.save(function(err,savedUser){
-    if(err){
-        return next(err);
-    }else{
-        console.log('saved database');
-        res.json(savedUser);
-    }
 });
 
-*/
-
-
-});
-
-router.get('/signup',function(req,res,next){
-  res.render('signup',{
-    title:'signup to proceed'
-  });
-
-});
 
 router.post('/signup',function(req,res,next){
-
-/*
-   console.log('this is for signup');
-   
-    res.render('index',{
-    	title:'welcome',
-    	message:'welcome to express js'
-    });
-  
-  */
   var error = validate(req);
     if(error){
         return next(error)
@@ -198,9 +154,134 @@ router.post('/signup',function(req,res,next){
   });
 });
 
+router.post('/forgotpassword',function(req,res,next){
+
+});
+
+
+router.post('/resetpassword',function(req,res,next){
+
+});
+
+router.get('/:id',function(req,res,next){
+  var id = req.params.id;
+  UserModel.find({
+    _id: id
+  })
+    .exec(function(err,result){
+        if(err){
+            return next(err);
+        }
+        res.status(200).json(result);
+    });
+});
+
+/*
+router.get('/:id',function(req,res,next){
+  var id = req.params.id;
+  UserModel.findById(id)
+    .exec(function(err,result){
+        if(err){
+            return next(err);
+        }
+        res.status(200).json(result);
+    });
+});
+*/
+
+router.put('/:id',function(req,res,next){
+ //validation
+var error = validate(req);
+    if(error){
+        return next(error)
+    }
+
+ var id = req.params.id;
+
+ UserModel.findByIdAndUpdate(id,req.body)
+    .exec(function(err,user){
+        if(err){
+            return next(err);
+        }
+        res.status(200).json(user);       
+    });  
+});
+
+
+/*
+
+router.put('/:id',function(req,res,next){
+ //validation
+var error = validate(req);
+    if(error){
+        return next(error)
+    }
+
+ var id = req.params.id;
+ UserModel.findById(id)
+    .exec(function(err,user){
+        if(err){
+            return next(err);
+        }
+        user.firstName = req.body.firstName;
+        user.lastName = req.body.lastName;
+        user.email = req.body.email;
+        user.save(function(err,done){
+            if(err){
+                return next(err);
+            }
+            res.status(200).json(done);
+        });
+
+        
+    });  
+
+
+
+});
+*/
+/*
+router.put('/:id',function(req,res,next){
+ //validation
+var error = validate(req);
+    if(error){
+        return next(error)
+    }
+
+ var id = req.params.id;
+ UserModel.findById(id)
+    .exec(function(err,user){
+        if(err){
+            return next(err);
+        }
+        var updateUser = map_user_req(user,req.body);
+        updateUser.save(function(err,done){
+            if(err){
+                return next(err);
+            }
+            res.status(200).json(done);
+        });
+
+        
+    });  
+
+
+
+});
+
+*/
+router.delete('/:id',function(req,res,next){
+    UserModel.remove({
+        _id:req.params.id
+    },function(err,done){
+        if(err){
+            return next(err);
+        }else{
+            res.status(200).json(done);
+        }
+    });
+
+});
 return router;
 
 }
-
-//we can export without making module.exports = function.....
-//module.exports = router; //at last
