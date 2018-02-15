@@ -27,7 +27,7 @@ function validate(req){
 }
 
 function map_user_req(user,userDetails){
-  
+  //userDetails is req.body
   if(userDetails.firstName)
     user.firstName = userDetails.firstName
   if(userDetails.lastName)
@@ -155,8 +155,14 @@ newUser.passsword = req.body.passsword
 
 });
 
-
 router.get('/signup',function(req,res,next){
+  res.render('signup',{
+    title:'signup to proceed'
+  });
+
+});
+
+router.post('/signup',function(req,res,next){
 
 /*
    console.log('this is for signup');
@@ -167,6 +173,10 @@ router.get('/signup',function(req,res,next){
     });
   
   */
+  var error = validate(req);
+    if(error){
+        return next(error)
+    }
 
   var newUser = new UserModel();
   var newMappedUser = map_user_req(newUser,req.body);
