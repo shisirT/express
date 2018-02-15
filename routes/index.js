@@ -1,12 +1,12 @@
 var express = require('express')
 var router = express.Router();
 var mongodb = require('mongodb');
-
-
-var MongoClient = mongodb.MongoClient;
-var dbUrl = 'mongodb://127.0.0.1:27017'
-
+//var MongoClient = mongodb.MongoClient;
+//var dbUrl = 'mongodb://127.0.0.1:27017'
 var UserModel = require('./../models/users');
+var passwordHash = require('password-hash');
+
+
 
 function validate(req){
     req.checkBody('username','username is required').notEmpty();
@@ -43,7 +43,7 @@ function map_user_req(user,userDetails){
   if(userDetails.username)
     user.username = userDetails.username
   if(userDetails.password)
-    user.password = userDetails.password
+    user.password = passwordHash.generate(userDetails.password);
   if(userDetails.activeStatus)
     user.activeStatus = true
   if(userDetails.inActiveStatus)
@@ -120,13 +120,21 @@ router.post('/',function(req,res,next){
 
 UserModel.findOne({
     username: req.body.username,
-    passsword: req.body.password
+    
 },function(err,user){
     if(err){
         return next(err);
     }
     if(user){
-        res.json(user);
+        var passMatch = passwordHash.verify(req.body.password,user.password);
+        if(passMatch){
+            res.status(200).json(user);
+        }else{
+            next({
+                status:403,
+                message:'User authentication failed'
+            });
+        }
     }else {
         res.json({
             message: 'user not found'
