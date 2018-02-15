@@ -18,7 +18,10 @@ var userSchema = new Schema({
 		required: true
 	},
 	phoneNumber: Number,
-	activeStatus: Boolean,
+	activeStatus: {
+	  type:Boolean,
+	  default:false	
+	},
 	address: String,
 	linkedIn_id: String
 },{

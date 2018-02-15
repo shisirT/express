@@ -28,6 +28,29 @@ function validate(req){
 
 function map_user_req(user,userDetails){
   
+  if(userDetails.firstName)
+    user.firstName = userDetails.firstName
+  if(userDetails.lastName)
+    user.lastName = userDetails.lastName
+  if(userDetails.phone)
+    user.phone = userDetails.phone
+  if(userDetails.email)
+    user.email = userDetails.email
+  if(userDetails.linkedIn_id)
+    user.linkedIn_id = userDetails.linkedIn_id
+  if(userDetails.address)
+    user.address = userDetails.address
+  if(userDetails.username)
+    user.username = userDetails.username
+  if(userDetails.password)
+    user.password = userDetails.password
+  if(userDetails.activeStatus)
+    user.activeStatus = true
+  if(userDetails.inActiveStatus)
+    user.activeStatus = false
+  
+  return user;
+
 }
 module.exports = function(){
 router.get('/',function(req,res,next){
@@ -147,14 +170,14 @@ router.get('/signup',function(req,res,next){
 
   var newUser = new UserModel();
   var newMappedUser = map_user_req(newUser,req.body);
-  newUser.save(function(err,savedUser){
+  newMappedUser.save(function(err,savedUser){
     if(err){
         return next(err);
     }else{
         console.log('successful saved to db');
         res.json(savedUser);
     }
-  }) 
+  });
 });
 
 return router;
