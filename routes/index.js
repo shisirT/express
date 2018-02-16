@@ -1,3 +1,4 @@
+
 var express = require('express')
 var router = express.Router();
 var mongodb = require('mongodb');
@@ -99,8 +100,8 @@ router.get('/',function(req,res,next){
 
 
 router.post('/login',function(req,res,next){
-	console.log('this is post page');
-	console.log('body>>>',req.body);
+    console.log('this is post page');
+    console.log('body>>>',req.body);
     
     var error = validate(req);
     if(error){
