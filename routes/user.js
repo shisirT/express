@@ -3,7 +3,6 @@ var router = express.Router();
 
 var UserModel = require('./../models/users');
 
-}
 module.exports = function(){
 	router.get('/',function(req,res,next){
 		UserModel.find({})
@@ -16,7 +15,7 @@ module.exports = function(){
 		});
 	});
 
-
+ 
 router.get('/:id',function(req,res,next){
   var id = req.params.id;
   UserModel.find({
