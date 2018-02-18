@@ -55,6 +55,9 @@ function map_user_req(user,userDetails){
 }
 
 module.exports = function(){
+  router.get('/',function(req,res,next){
+    console.log('welcome to hamro app!');
+  });
  
  router.post('/login',function(req,res,next){
     console.log('this is post page');
