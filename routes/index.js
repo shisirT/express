@@ -62,9 +62,12 @@ function map_user_req(user,userDetails){
 
 }
 
-module.exports = function(){
+module.exports = function(config){
   router.get('/',function(req,res,next){
     console.log('welcome to hamro app!');
+    res.json({
+      message:'welcome to hamro app'
+    });
   });
  
  router.post('/login',function(req,res,next){
