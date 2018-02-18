@@ -2,12 +2,20 @@
 var express = require('express')
 var router = express.Router();
 var mongodb = require('mongodb');
+var jwt = require('jsonwebtoken');
 //var MongoClient = mongodb.MongoClient;
 //var dbUrl = 'mongodb://127.0.0.1:27017'
 var UserModel = require('./../models/users');
 var passwordHash = require('password-hash');
 
+function createToken(data,config){
+  var token = jwt.sign({
+    user:data
+  },config.app.secret,{
+    expiresIn: '2h'});
+  return token;
 
+}
 
 function validate(req){
     req.checkBody('username','username is required').notEmpty();
@@ -80,7 +88,11 @@ module.exports = function(){
     if(user){
         var passMatch = passwordHash.verify(req.body.password,user.password);
         if(passMatch){
-            res.status(200).json(user);
+          var token = createToken(user,config);
+            res.status(200).json({
+              user: user,
+              token: token
+            });
         }else{
             next({
                 status:403,
