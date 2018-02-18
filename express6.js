@@ -10,7 +10,7 @@ var config = require('./config');
 require('./db')(config);
 
 var authRoute = require('./routes/auth')();
-var indexRoute = require('./routes/index')();
+var indexRoute = require('./routes/index')(config);
 var userRoute = require('./routes/user')();
 var authorize = require('./middlewares/authorize')();
 var authenticate = require('./middlewares/authenticate');
