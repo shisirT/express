@@ -11,9 +11,11 @@ require('./db')(config);
 
 var authRoute = require('./routes/auth')();
 var indexRoute = require('./routes/index')(config);
+var productRoute = require('./routes/products')();
 var userRoute = require('./routes/user')();
 var authorize = require('./middlewares/authorize')();
 var authenticate = require('./middlewares/authenticate');
+
 
 
 var app = express();
@@ -35,6 +37,7 @@ app.use(morgan('dev'));
 app.use('/',indexRoute);
 app.use('/auth',authRoute);
 app.use('/user',userRoute);
+app.use('/product',productRoute);
 //app.use(authorize);
 //app.use(authenticate);
 
