@@ -59,10 +59,12 @@ var productSchema = new Schema({
   attributes: {
   	type: String
   },
+  
   rating: {
   	type:Number,
   	default:3
   },
+
   imageName: [String],
 
   feedbacks: {
