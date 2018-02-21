@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var locationSchema = new Schema({
+  country: String,
   city:String,
   zone:String,
   zipCode:String,
@@ -9,6 +10,16 @@ var locationSchema = new Schema({
   houseNo: String
 });
 
+var distributorSchema= new Schema({
+	name:String,
+	address: locationSchema,
+	email: {
+		type: String
+	},
+	contactNumber: {
+		type:Number
+	}
+});
 
 var productSchema = new Schema({
   category:{
@@ -18,6 +29,11 @@ var productSchema = new Schema({
   name:{
   	type:String
   },
+
+  description: {
+  	type: String
+  },
+
   brand:{
   	type:String
   },
@@ -30,50 +46,42 @@ var productSchema = new Schema({
   color: {
   	type: String
   },
-  quantity: {
-  	type: Number
+  status: {
+  	type: String,
+  	default: 'available'
   },
-  origin: {
-  	type: String
+   
+ manuDate: {
+  	type: Date,
+  	default: Date.now()
   },
-  description: {
-  	type: String
-  },
+
   attributes: {
   	type: String
   },
   rating: {
-  	ENUM: ['1','2','3','4','5'],
+  	type:Number,
   	default:3
   },
-  manuDate: {
-  	type: Date,
-  	default: Date.now()
-  },
-  dimensions: {
-  	type: String
-  },
   imageName: [String],
-  distributors: [String],
-  discount: {
-  	type: String
-  },
-  delivery : {
-  	type: Boolean,
-  	default:false
-  },
+
   feedbacks: {
   	type: String
   },
-  offers: {
-  	type: String
-  },
-  address: {
-  	type: String
-  },
+  
+  address:locationSchema,
+  
   tags: {
   	type:String
   }
+  
+  user: {
+  	type:Schema.Types.ObjectId,
+  	ref: 'User'
+  }
+
+},{
+	timestamps: true
 });
 
 
