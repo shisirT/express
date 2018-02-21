@@ -82,7 +82,13 @@ module.exports = function(config){
 
 
     UserModel.findOne({
-    username: req.body.username,
+    //username: req.body.username,
+    //we can put $or,and etc
+    $or: [{
+      username:req.body.username
+    },{
+      email:req.body.username,
+    }]
 
 },function(err,user){
     if(err){
