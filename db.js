@@ -22,8 +22,8 @@ mongoose.connection.once('open',function(done){
 */
 
 module.exports =  function(config){
-	
-  mongoose.connect(config.mongodb.localUrl);
+	var mlabUrl = 'mongodb://shisir:test12345@ds147668.mlab.com:47668/hamroapp'
+  mongoose.connect(mlabUrl);
 
 
 mongoose.connection.on('error',function(err){
