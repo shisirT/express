@@ -11,8 +11,11 @@ var passwordHash = require('password-hash');
 function createToken(data,config){
   var token = jwt.sign({
     user:data
-  },config.app.secret,{
-    expiresIn: '2h'});
+  },config.app.secret,
+  /*{
+    expiresIn: '2h'}
+  */
+  );
   return token;
 
 }
