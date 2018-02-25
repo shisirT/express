@@ -7,7 +7,7 @@ var path = require('path');
 
 var config = require('./config');
 //var indexRoute = require('./routes/index.js');
-require('./db')(config);
+require('./db.js')(config);
 
 var authRoute = require('./routes/auth')();
 var indexRoute = require('./routes/index')(config);
