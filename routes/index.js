@@ -44,8 +44,8 @@ function map_user_req(user,userDetails){
     user.firstName = userDetails.firstName
   if(userDetails.lastName)
     user.lastName = userDetails.lastName
-  if(userDetails.phone)
-    user.phone = userDetails.phone
+  if(userDetails.phoneNumber)
+    user.phoneNumber = userDetails.phoneNumber
   if(userDetails.email)
     user.email = userDetails.email
   if(userDetails.linkedIn_id)
