@@ -75,7 +75,7 @@ var productSchema = new Schema({
   
   tags: {
   	type:String
-  }
+  },
   
   user: {
   	type:Schema.Types.ObjectId,
