@@ -22,7 +22,8 @@ mongoose.connection.once('open',function(done){
 */
 
 module.exports =  function(config){
-  mongoose.connect(config.mongodb.url);
+	
+  mongoose.connect(config.mongodb.localUrl);
 
 
 mongoose.connection.on('error',function(err){
