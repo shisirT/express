@@ -5,7 +5,9 @@ var router = express.Router();
 module.exports = function(){
 	//get all products
 	router.get('/',function(req,res,next){
-
+        res.json({
+			message:'hello'
+		});
 	});
 	//get product by id
 	router.get('/:id',function(req,res,next){
