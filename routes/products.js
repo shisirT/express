@@ -46,7 +46,9 @@ module.exports = function(){
 		console.log('this is get req to fetch all product')
 		console.log('now in request object we have a property called user that holds inf. of current user',req.user);
 		
-       productModel.find({}).exec(function(err,products){
+	   productModel.find({})
+	   .populate(user)
+	   .exec(function(err,products){
 		   if(err){
 			   return next(err);
 		   }
@@ -72,6 +74,7 @@ module.exports = function(){
 		//or
 		var newProduct = new productModel();
 		var mappedProduct = mapProductRequest(newProduct,req.body);
+		mappedProduct.user = req.user_id;
 		mappedProduct.save((err,savedUser)=>{
           if(err){
 			 return next(err);
