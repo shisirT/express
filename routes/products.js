@@ -43,6 +43,9 @@ function mapProductRequest (product,productDetails){
 module.exports = function(){
 	//get all products
 	router.get('/',function(req,res,next){
+		console.log('this is get req to fetch all product')
+		console.log('now in request object we have a property called user that holds inf. of current user',req.user);
+		
        productModel.find({}).exec(function(err,products){
 		   if(err){
 			   return next(err);
