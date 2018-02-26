@@ -37,7 +37,7 @@ app.use(morgan('dev'));
 app.use('/',indexRoute);
 app.use('/auth',authRoute);
 app.use('/user',userRoute);
-app.use('/product',productRoute);
+app.use('/product',authenticate,productRoute);
 //app.use(authorize);
 //app.use(authenticate);
 
