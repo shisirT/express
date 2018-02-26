@@ -63,8 +63,19 @@ module.exports = function(){
 		
 	});
 	//insert new product
-	router.post('/:id',function(req,res,next){
-		
+	router.post('/',function(req,res,next){
+	
+		//var newProduct = new productModel(req.body);
+		//or
+		var newProduct = new productModel();
+		var mappedProduct = mapProductRequest(newProduct,req.body);
+		mappedProduct.save((err,savedUser)=>{
+          if(err){
+			 return next(err);
+		  }
+		  res.status(200).json(savedUser);
+		});
+	
 	});
 	//update product by id
 	router.put('/:id',function(req,res,next){
@@ -76,7 +87,7 @@ module.exports = function(){
 	});
 	//search product
 	router.get('/search',function(req,res,next){
-		
+	  	
 	});
 	return router;
 }
