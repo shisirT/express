@@ -1,7 +1,7 @@
 var jwt = require('jsonwebtoken');
 var config = require('./../config');
 
-
+var userModel = require('./../models/users');
 
 module.exports = function(req,res,next){
 
@@ -17,8 +17,24 @@ module.exports = function(req,res,next){
     if(token){
       var validUser = jwt.verify(token,config.app.secret,function(err,done){
          if(validUser){
-            req.user = validUser.user,
-            next();
+             userModel.findById(validUser._id,function(err,user){
+                 if(err){
+                     return next(err);
+                 }
+                 if(user){
+                   req.user = user;
+                   return next();
+
+                 }else{
+                     return next({
+                         message:'user not found'
+                     });
+                 }
+                 
+                 
+             });
+           
+            
          }else{
             return next({
                 status: 401,
