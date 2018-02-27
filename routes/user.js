@@ -3,6 +3,25 @@ var router = express.Router();
 
 var UserModel = require('./../models/users');
 
+
+function validate(req){
+    req.checkBody('username','username is required').notEmpty();
+    req.checkBody('password','password is required').notEmpty();
+    req.checkBody('password','password should be 8 characters').isLength({min:8});
+    req.checkBody('password','password max 12 characters').isLength({max:12});
+//try assert inplace of checkBody //req.assert
+    var errors = req.validationErrors();
+
+    if(errors){
+        console.log('error occured validating form');
+        return (errors);
+        //return next(errors); //to end if there is no place to do next
+    }else{
+
+       return null;   
+    }
+}
+
 module.exports = function(){
 	router.get('/',function(req,res,next){
 		UserModel.find({})
