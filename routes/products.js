@@ -43,7 +43,7 @@ function mapProductRequest (product,productDetails){
 module.exports = function(){
 	//get all products
 	router.get('/',function(req,res,next){
-		console.log('this is get req to fetch all product')
+		console.log('this is get req to fetch all product');
 		console.log('now in request object we have a property called user that holds inf. of current user',req.user);
 		
 	   productModel.find({})
@@ -52,12 +52,12 @@ module.exports = function(){
 		   if(err){
 			   return next(err);
 		   }
-		   if(products){
+		   if(products.length){
 			   res.status(200).json(products);
 		   }
 		   else{
 			   res.json({
-				   message:'products not found'
+				   result:'products not found'
 			   });
 				
 		   }
