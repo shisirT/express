@@ -1,3 +1,4 @@
+//database/mongoose
 var mongoose = require ('mongoose');
 
 /* first step to do is:
