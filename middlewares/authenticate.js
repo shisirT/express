@@ -1,7 +1,8 @@
+//authenticate
 var jwt = require('jsonwebtoken');
 var config = require('./../config');
 
-var userModel = require('./../models/users');
+var userModels = require('./../models/users');
 
 module.exports = function(req,res,next){
 
@@ -13,11 +14,11 @@ module.exports = function(req,res,next){
         token= req.headers['Authorization']
     if(req.query.token)
         token = req.query.token;
-
+    
     if(token){
       var validUser = jwt.verify(token,config.app.secret,function(err,done){
          if(validUser){
-             userModel.findById(validUser._id,function(err,user){
+             userModels.findById(validUser._id,function(err,user){
                  if(err){
                      return next(err);
                  }
@@ -50,6 +51,7 @@ module.exports = function(req,res,next){
             message:'Token Not Provided'
         });
     }
+
 }
 
 
