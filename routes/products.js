@@ -1,3 +1,4 @@
+//models/products
 var express = require('express');
 var router = express.Router();
 var productModel = require('./../models/products');
@@ -46,6 +47,11 @@ module.exports = function(){
 		console.log('this is get req to fetch all product');
 		console.log('now in request object we have a property called user that holds inf. of current user',req.user);
 		
+		res.json({
+			message:'hello products'
+		});
+
+		/*	
 	   productModel.find({})
 	   .populate(user)
 	   .exec(function(err,products){
@@ -62,8 +68,11 @@ module.exports = function(){
 				
 		   }
 	   });
+*/
 	});
+
 	//get product by id
+
 	router.get('/:id',function(req,res,next){
 		
 	});
